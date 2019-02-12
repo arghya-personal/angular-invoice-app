@@ -1,0 +1,42 @@
+<mat-card>
+<form [formGroup]="customerForm" (ngSubmit)="onFormSubmit(customerForm.value)">
+  <div class="form-group">  
+    <mat-form-field>
+      <input matInput placeholder="name" formControlName="name">
+    </mat-form-field>
+  </div>
+
+  <div class="form-group">  
+    <mat-form-field>
+      <input matInput placeholder="Address"  formControlName="address">
+    </mat-form-field>
+    </div>
+
+    <div class="form-group">  
+      <mat-form-field>
+        <input matInput placeholder="Phone"  formControlName="phone">
+      </mat-form-field>
+      </div>
+      <button mat-button>Submit</button>
+</form>
+</mat-card>
+<table mat-table [dataSource]="customer" class="mat-elevation-z8">  
+    <ng-container matColumnDef="customerName">
+      <th mat-header-cell *matHeaderCellDef> Customer Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="Phone">
+      <th mat-header-cell *matHeaderCellDef> Phone </th>
+      <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="Address">
+      <th mat-header-cell *matHeaderCellDef> Address </th>
+      <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+  </table>
+  

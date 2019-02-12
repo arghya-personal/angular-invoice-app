@@ -1,0 +1,73 @@
+
+<mat-card>
+<form class="example-container" [formGroup]="invoicerForm">
+
+    <mat-form-field>
+      <mat-select matNativeControl formControlName="customer_id" placeholder = "Choose Customer">
+        <mat-option *ngFor="let element of dropDownCustomerData" [value]="element.id">
+            {{element.name}}
+          </mat-option>      
+        </mat-select>
+    </mat-form-field>
+    <!-- <div formArrayName= "items"
+     *ngFor="let item of invoicerForm.get('items').controls; let i = index;">
+      <div [formGroupName]="i">    -->
+        <!-- <div>
+          <mat-form-field>
+              <mat-select matNativeControl formControlName="product_id"  placeholder = "Choose product">
+                  <mat-option *ngFor="let element of dropDownProductData" [value]="element.id">
+                    {{element.name}}
+                  </mat-option> 
+              </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <input matInput placeholder = "quantity"  formControlName="quantity" >
+          </mat-form-field>
+        </div> -->
+        <div formArrayName= "customForm" *ngFor="let item of invoicerForm.get('customForm').controls; let i = index;">
+          <div [formGroupName]="i">
+            <app-custom-product-form [dropDownProductData]="dropDownProductData" formControlName = "item"> </app-custom-product-form>            
+          </div>
+        </div>
+ 
+      <!-- </div>
+    </div>  -->
+
+   
+    
+        <!-- Chosen name: {{ invoicerForm.controls.items.controls[i].controls.name.value }} -->
+     <button mat-stroked-button (click)="addItem()">Add Product</button>
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Discount" formControlName="discount" >
+        </mat-form-field>
+      </div>
+      <button mat-stroked-button (click)="submitForm()">Submit</button>
+      <span>Total::{{total}}</span>
+  </form>
+</mat-card>
+
+<table mat-table [dataSource]="invoice" class="mat-elevation-z8">  
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="discount">
+    <th mat-header-cell *matHeaderCellDef> Discount </th>
+    <td mat-cell *matCellDef="let element"> {{element.discount}} </td>
+  </ng-container>
+
+  
+
+  <ng-container matColumnDef="total">
+    <th mat-header-cell *matHeaderCellDef> Total </th>
+    <td mat-cell *matCellDef="let element"> {{element.total}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+</table>

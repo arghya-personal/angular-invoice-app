@@ -1,0 +1,17 @@
+
+<form [formGroup] = "customProductForm"> 
+<div>
+  <mat-form-field>
+    <mat-select matNativeControl formControlName="product_id"  placeholder = "Choose product">
+        <mat-option *ngFor="let element of dropDownProductData" [value]="element.id">
+          {{element.name}}
+        </mat-option> 
+    </mat-select>
+  </mat-form-field>
+</div>
+<div>
+  <mat-form-field>
+  <input matInput placeholder = "quantity"  formControlName="quantity" >
+  </mat-form-field>
+</div>
+ </form>
